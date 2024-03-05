@@ -1,0 +1,79 @@
+---
+title: 'Nabíjecí data'
+description: 'Nabíjecí data z vaší nabíjecí stanice'
+permalink: 'nabijeci-data/'
+eleventyNavigation:
+  key: Nabíjecí data
+  order: 2
+  icon: bar_chart
+---
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+<script defer src="/assets/js/papaparse.min.js"></script>
+{% endblock head %}
+
+{% block body %}
+
+<!-- MAIN -->
+<section class="px-4 sm:px-8 py-16">
+  <div class="max-w-screen-2xl m-auto flex flex-col gap-8">
+    <!-- HEADING -->
+    <div class="p-2 border-b border-neutral-200 dark:border-neutral-600">
+      <h2 class="text-lg dark:text-white font-semibold">Nabíjecí data</h2>
+    </div>
+
+    <!-- TABLE + DOWNLOAD -->
+    <div class="flex flex-col gap-4">
+      <div class="p-4 bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl overflow-x-auto">
+        <!-- CHARGING DATA TABLE -->
+        <table id="charging-data" class="w-full">
+          <thead id="charging-head">
+            <tr class="*:py-2 *:px-4 *:text-sm *:text-left *:font-medium *:dark:text-white *:whitespace-nowrap">
+              <th scope="col">#</th>
+              <th scope="col">ID stanice</th>
+              <th scope="col">Název nabíjecího bodu</th>
+              <th scope="col">Začátek nabíjení</th>
+              <th scope="col">Konec nabíjení</th>
+              <th scope="col">RFID</th>
+              <th scope="col">Spotřeba (Wh)</th>
+            </tr>
+          </thead>
+          <tbody id="charging-data-body" class="*:border-t *:border-neutral-300 *:dark:border-neutral-500">
+            <!-- EMPTY TABLE ROW -->
+            <tr id="empty-charging-row" class="hidden *:py-2 *:px-4 hover:bg-neutral-200 dark:hover:bg-neutral-600 *:text-sm *:whitespace-nowrap">
+              <td class="flex items-center gap-2">
+                <span class="record-id text-black dark:text-white"></span>
+                <!-- CHARGING ICON -->
+                <span class="charging-icon hidden relative h-2.5 w-2.5 z-10">
+                  <span class="absolute h-full w-full bg-blue-400/75 rounded-full animate-ping -z-10"></span>
+                  <span class="block h-2.5 w-2.5 bg-blue-500 rounded-full z-10"></span>
+                </span>
+              </td>
+              <td class="device-uid text-neutral-700 dark:text-neutral-200"></td>
+              <td class="charging-point-name text-neutral-700 dark:text-neutral-200"></td>
+              <td class="start-timestamp text-neutral-700 dark:text-neutral-200"></td>
+              <td class="end-timestamp text-neutral-700 dark:text-neutral-200"></td>
+              <td class="rfid-tag text-neutral-700 dark:text-neutral-200"></td>
+              <td class="consumption text-neutral-700 dark:text-neutral-200"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!-- DOWNLOAD CSV -->
+      <div class="flex justify-end items-center">
+        <a class="p-2 bg-primary font-barlow text-white font-medium rounded-lg" href="/data/charging_data.csv" download>Stáhnout data</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock body %}
+
+{% block javascript %}
+<script type="module" src="/assets/js/pages/charging-data.js"></script>
+{% endblock javascript %}

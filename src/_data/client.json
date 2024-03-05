@@ -1,0 +1,20 @@
+{
+  "name": "EWE - mobility management",
+  "email": "wallbox@ewe.cz",
+  "phoneForTel": "",
+  "phoneFormatted": "",
+  "address": {
+    "lineOne": "Třebovská 570",
+    "city": "Ústí nad Orlicí",
+    "zip": "56203",
+    "mapLink": "https://maps.app.goo.gl/LAjy49xpRkWNLnwu7"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/EWEsro/",
+    "instagram": "https://www.instagram.com/ewesro/",
+    "youtube": "",
+    "tiktok": "",
+    "whatsapp": ""
+  },
+  "domain": "https://www.ewe.cz"
+}

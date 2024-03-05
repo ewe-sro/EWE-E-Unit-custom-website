@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+  <head>
+    <!-- Standard meta tags -->
+    <meta charset="UTF-8">
+
+    <!-- Ensures the viewport widths are defined correctly and work on all devices (esp. mobile) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- Identifies eleventy as the generator for this document. Shows in apps like Wappalyzer or BuiltWith. Proves that you're a worthy developer that cares about your product -->
+    <meta name="generator" content="{{ eleventy.generator }}">
+
+    <!-- May be used in SERP results. Search Engines may also change them, at their discretion. Good to set anyway -->
+    <meta name="description" content="{{ description }}">
+
+    <!-- Open Graph tags to improve how the website shows up on social media -->
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="{{ client.domain }}{{ page.url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/assets/images/senoweb_og_logo.png">
+    <meta property="og:site_name" content="{{ client.name }}">
+    <meta property="og:locale" content="cs_CZ">
+
+    <!-- Helps prevent duplicate content issues -->
+    <link rel="canonical" href="{{ client.domain }}{{ page.url }}">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png?v1">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Preloads -->
+    <link rel="preload" as="image" href="/assets/svgs/EWE_logo.svg">
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/poppins-v20-latin-ext-regular.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/poppins-v20-latin-ext-200.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/poppins-v20-latin-ext-500.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/poppins-v20-latin-ext-600.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/material-icons-round.woff2" crossorigin>
+
+    {% if preloadImg %}
+    <!-- Preload an image -->
+      <link rel="preload" as="image" href="{{ preloadImg }}">
+    {% endif %}
+
+    <!-- Sitewide Stylesheets and Scripts -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script defer src="/assets/js/app.js"></script>
+    <script defer src="/assets/js/ui.js"></script>
+
+    {% block head %}{% endblock %}
+
+    <!--For home page, use service keywords for the title, including location for SEO.
+        Other pages should just include the page name.
+        
+        EXAMPLE:
+        Home page - House Painting Contractors | Painters and Co. | TestCity, WA
+        About Page - About us | Painters and Co.
+    -->
+    <title>
+      {{ title }}
+      |
+      {{ client.name }}
+    </title>
+  </head>
+  <body class="group/body{% if page.url == '/' %} home{% else %} interior{% endif %} relative flex">
+    <!-- Screen reader skip main nav -->
+    <a class="sr-only" aria-label="kliknutím přeskočíte na hlavní obsah" href="#main">Kliknutím přeskočíte na hlavní obsah</a>
+
+    {% include "components/sidebar.html" %}
+    
+    <div class="flex-grow flex flex-col">
+      {% include "components/header.html" %}
+      <main id="main" class="flex-grow dark:bg-black">
+        {% block body %}{% endblock %}
+      </main>
+      {% include "components/footer.html" %}
+    </div>
+
+    {% block javascript %}{% endblock %}
+
+  </body>
+</html>

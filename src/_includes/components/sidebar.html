@@ -1,0 +1,44 @@
+<!-- SIDEBAR MENU -->
+<nav class="sidebar absolute lg:sticky top-0 left-0 flex flex-col justify-between h-screen w-full max-w-xs py-8 px-4 z-50
+bg-primary-50 dark:bg-neutral-700 border-r border-neutral-200 dark:border-neutral-600
+transition-transform duration-500 delay-200 max-lg:-translate-x-full group-[.sidebar]/body:translate-x-0">
+    <div class="flex flex-col gap-16 w-full">
+        <!-- NAVIGATION LOGO -->
+        <a aria-label="Kliknutím přejdete na domovskou stránku" href="/">
+            <img class="dark:hidden h-14 w-auto" decoding="async" loading="eager" src="/assets/svgs/EWE_logo.svg" alt="EWE s.r.o. logo" width="164" height="56">
+            <img class="hidden dark:block h-14 w-auto" decoding="async" loading="eager" src="/assets/svgs/EWE_logo_white.svg" alt="EWE s.r.o. logo" width="164" height="56">
+        </a>
+    
+        <ul class="flex flex-col gap-1.5">
+            {% set navPages = collections.all | eleventyNavigation %}
+              {% for entry in navPages %}
+                {% set hasChild = entry.children.length %}
+    
+                <li class="{% if hasChild %} dropdown{% endif %}"{% if hasChild %} tabindex="0"{% endif %}>
+                    <a href="{{ entry.url }}" class="flex items-center gap-2 px-4 py-2 hover:bg-orange-600/15 dark:hover:bg-neutral-800 hover:text-primary dark:hover:text-white font-medium rounded-lg
+                    {% if entry.url == page.url or entry.title | lower in page.url %} bg-orange-600/15 dark:bg-neutral-800 text-primary dark:text-white
+                    {% else %} text-neutral-700 dark:text-neutral-200{% endif %}"{% if entry.url == page.url or entry.title | lower in page.url %} aria-current="page" {% endif %}>
+                        <span class="material-icons-round">{{ entry.icon }}</span>
+                        <span>{{ entry.title }}</span>
+                    </a>
+                </li>
+      
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <ul class="flex flex-col gap-1.5">
+        <li>
+            <a href="#" id="settings-link" class="flex items-center gap-2 px-4 py-2 hover:bg-orange-600/15 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 hover:text-primary dark:hover:text-white font-medium rounded-lg">
+                <span class="material-icons-round">settings</span>
+                <span>Nastavení</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- SIDEBAR CLOSE BUTTON -->
+    <button class="sidebar-toggle material-icons-round !hidden group-[.sidebar]/body:!inline-block absolute top-6 -right-10 text-neutral-200 hover:text-white
+    transition-opacity duration-300 opacity-0 group-[.sidebar]/body:opacity-100" type="button">close</button>
+</nav>
+
+<div class="absolute top-0 left-0 -translate-x-full h-screen w-screen bg-neutral-800/75 z-40 transition-transform duration-500 group-[.sidebar]/body:translate-x-0"></div>
