@@ -21,6 +21,7 @@ module.exports = {
             900: '#271203',
             950: '#0D0601'
           },
+          'secondary': '#2B2A29'
       },
       fontFamily: {
         "sans": ["Poppins", defaultTheme.fontFamily.sans],

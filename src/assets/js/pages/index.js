@@ -311,6 +311,17 @@ async function refreshConnectionData(host) {
 
             controllerCard.querySelector(".charging-information").classList.add("connected");
 
+            // Check if controller card element '.charging-information' has 'disconnected' class and remove it if it does
+            if (controllerCard.querySelector(".charging-information").classList.contains("disconnected")) {
+                controllerCard.querySelector(".charging-information").classList.remove("disconnected");
+            }
+
+            if (controllerCard.querySelector(".charging-state").classList.contains("bg-green-500")) {
+                controllerCard.querySelector(".charging-state").classList.remove("bg-green-500");
+            }
+
+            controllerCard.querySelector(".charging-icon").classList.remove("hidden"); // show card charging icon
+
             controllerCard.querySelector(".charging-time").innerHTML = chargingObj.charging_time;
 
             /////////////////////////////////////////
@@ -320,6 +331,17 @@ async function refreshConnectionData(host) {
             controllerModal.querySelector(".charging-state").classList.add("bg-blue-500");
 
             controllerModal.querySelector(".charging-information").classList.add("connected");
+
+            // Check if controller card element '.charging-information' has 'disconnected' class and remove it if it does
+            if (controllerModal.querySelector(".charging-information").classList.contains("disconnected")) {
+                controllerModal.querySelector(".charging-information").classList.remove("disconnected");
+            }
+
+            if (controllerModal.querySelector(".charging-state").classList.contains("bg-green-500")) {
+                controllerModal.querySelector(".charging-state").classList.remove("bg-green-500");
+            }
+
+            controllerModal.querySelector(".charging-icon").classList.remove("hidden"); // show modal charging icon
 
             // Calculate power Watts
             let realPower = chargingObj.real_power.value
@@ -359,12 +381,14 @@ async function refreshConnectionData(host) {
 
 
 // Set the host IP hostname for API calls
-var currentHost = window.location.hostname
+var currentHost = window.location.hostname;
 
 // Initialize controller data
-initControllers("192.168.150.241")
+//initControllers(currentHost);
+initControllers("192.168.150.241");
 
 // Wait 5 seconds and then run function that refreshes connection data
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 await sleep(5000);
+//refreshConnectionData(currentHost);
 refreshConnectionData("192.168.150.241");

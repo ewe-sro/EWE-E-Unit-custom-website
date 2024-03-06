@@ -29,6 +29,7 @@ for (let row in chargingData.data) {
     newRow.querySelector(".charging-point-name").innerHTML = chargingObj.chargingPointName;
     newRow.querySelector(".start-timestamp").innerHTML = chargingObj.startTimestamp;
     newRow.querySelector(".end-timestamp").innerHTML = chargingObj.endTimestamp;
+    newRow.querySelector(".duration").innerHTML = chargingObj.duration;
     newRow.querySelector(".rfid-tag").innerHTML = chargingObj.rfidTag;
     newRow.querySelector(".consumption").innerHTML = chargingObj.consumptionWh;
 

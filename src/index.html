@@ -1,6 +1,7 @@
 ---
 title: 'Domů'
 description: 'EWE - mobility management'
+heading: 'Nabíjecí kontrolery'
 permalink: '/'
 eleventyNavigation:
   key: Domů
@@ -15,16 +16,11 @@ eleventyNavigation:
 <!-- MAIN -->
 <section class="px-4 sm:px-8 py-16">
   <div class="max-w-screen-2xl m-auto flex flex-col gap-8">
-    <!-- HEADING -->
-    <div class="p-2 border-b border-neutral-200 dark:border-neutral-600">
-      <h2 class="text-lg dark:text-white font-semibold">Nabíjecí kontrolery</h2>
-    </div>
-
     <!-- CONTROLLER CARDS -->
-    <ul id="controller-cards" class="flex flex-wrap items-start gap-8">
+    <ul id="controller-cards" class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-8">
 
       <!-- EMPTY CONTROLLER CARD -->
-      <li id="empty-controller-card" class="hidden w-full sm:max-w-md bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl">
+      <li id="empty-controller-card" class="hidden w-full 2xl:max-w-lg bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl">
         <div class="flex justify-between items-center px-6 py-4 border-b border-neutral-200 dark:border-neutral-600">
           <!-- CONTROLLER HEADING -->
           <h3 class="dark:text-white font-semibold">EWE E-Unit</h3>
@@ -77,103 +73,105 @@ eleventyNavigation:
 
     </ul>
 
-    <!-- CONTROLLER MODALS -->
-    <ul id="controller-modals" class="flex flex-col justify-center items-center fixed top-0 left-0 min-h-screen w-screen pt-16 px-4 sm:px-8 bg-neutral-800/75 z-50
+    <div class="absolute top-0 left-0 h-screen w-screen pt-16 pb-8 px-4 sm:px-8 bg-neutral-800/75 z-50 overflow-y-auto
     -translate-y-full transition-transform duration-300 group-[.modal]/body:translate-y-0">
-      <!-- EMPTY CONTROLLER MODAL -->
-      <li id="empty-controller-modal" class="relative hidden w-full max-w-3xl bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl
-      transition-opacity duration-500 opacity-0 group-[.modal]/body:opacity-100">
+      <!-- CONTROLLER MODALS -->
+      <ul id="controller-modals" class="flex flex-col justify-center items-center sm:h-full">
+        <!-- EMPTY CONTROLLER MODAL -->
+        <li id="empty-controller-modal" class="relative hidden w-full max-w-3xl bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl
+        transition-opacity duration-500 opacity-0 group-[.modal]/body:opacity-100">
 
-        <!-- CLOSE BUTTON -->
-        <button class="modal-toggle material-icons-round absolute -top-12 right-6 h-10 w-10 !text-2xl
-        text-neutral-200 hover:text-white transition-transform duration-300 focus:scale-[.8]" onclick="toggleModal(this.dataset.controllerUid)">close</button>
+          <!-- CLOSE BUTTON -->
+          <button class="modal-toggle material-icons-round absolute -top-12 right-6 h-10 w-10 !text-2xl
+          text-neutral-200 hover:text-white transition-transform duration-300 focus:scale-[.8]" onclick="toggleModal(this.dataset.controllerUid)">close</button>
 
-        <div class="flex justify-between items-center px-6 py-4 border-b border-neutral-200 dark:border-neutral-600">
-          <!-- CONTROLLER HEADING -->
-          <h3 class="dark:text-white font-semibold">Kontroler</h3>
-          <span class="p-2 bg-primary font-barlow text-white font-medium rounded-lg">ID: <span class="controller-uid"></span></span>
-        </div>
+          <div class="flex justify-between items-center px-6 py-4 border-b border-neutral-200 dark:border-neutral-600">
+            <!-- CONTROLLER HEADING -->
+            <h3 class="dark:text-white font-semibold">Kontroler</h3>
+            <span class="p-2 bg-primary font-barlow text-white font-medium rounded-lg">ID: <span class="controller-uid"></span></span>
+          </div>
 
-        <!-- CONTROLLER INFORMATION -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-12 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-          <!-- DEVICE NAME -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Název zařízení</p>
-            <p class="device-name font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- CHARGING POINT NAME -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Název nabíjecího bodu</p>
-            <p class="charging-point-name font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- FIRMWARE VERSION -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Verze firmware</p>
-            <p class="firmware-version font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- HARDWARE VERSION -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Verze hardware</p>
-            <p class="hardware-version font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- PARENT DEVICE UID -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">ID kmenového zařízení</p>
-            <p class="parent-device-uid font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- POSITION -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Pozice</p>
-            <p class="position font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-        </div>
-
-        <!-- CHARGING INFORMATION -->
-        <div class="group charging-information grid grid-cols-2 gap-y-2 gap-x-12 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
-          <!-- CHARGING STATE -->
-          <div class="flex max-md:flex-col justify-between items-start md:items-center gap-1 md:gap-4">
-            <div class="flex items-center gap-2">
-              <p class="dark:text-white text-sm font-medium">Stav</p>
-              <!-- CHARGING ICON -->
-              <span class="charging-icon hidden relative h-2.5 w-2.5 z-10">
-                <span class="absolute h-full w-full bg-blue-400/75 rounded-full animate-ping -z-10"></span>
-                <span class="block h-2.5 w-2.5 bg-blue-500 rounded-full z-10"></span>
-              </span>
+          <!-- CONTROLLER INFORMATION -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-12 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+            <!-- DEVICE NAME -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Název zařízení</p>
+              <p class="device-name font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
             </div>
-            <p class="charging-state py-0.5 px-2 font-barlow text-lg text-white rounded-lg"></p>
+            <!-- CHARGING POINT NAME -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Název nabíjecího bodu</p>
+              <p class="charging-point-name font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- FIRMWARE VERSION -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Verze firmware</p>
+              <p class="firmware-version font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- HARDWARE VERSION -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Verze hardware</p>
+              <p class="hardware-version font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- PARENT DEVICE UID -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">ID kmenového zařízení</p>
+              <p class="parent-device-uid font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- POSITION -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Pozice</p>
+              <p class="position font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
           </div>
-          <!-- CONNECTED TIME -->
-          <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Nabíjecí výkon</p>
-            <p class="real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- CONNECTED TIME -->
-          <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Doba připojení</p>
-            <p class="connected-time font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-          <!-- CHARGING TIME -->
-          <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Doba nabíjení</p>
-            <p class="charging-time font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
-          </div>
-        </div>
 
-        <!-- CHARGING DATA -->
-        <div class="group charging-data grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-12 px-6 py-4">
-          <!-- CHARGING STATE -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Celkem nabito</p>
-            <p class="energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+          <!-- CHARGING INFORMATION -->
+          <div class="group charging-information grid grid-cols-2 gap-y-2 gap-x-12 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+            <!-- CHARGING STATE -->
+            <div class="flex max-md:flex-col justify-between items-start md:items-center gap-1 md:gap-4">
+              <div class="flex items-center gap-2">
+                <p class="dark:text-white text-sm font-medium">Stav</p>
+                <!-- CHARGING ICON -->
+                <span class="charging-icon hidden relative h-2.5 w-2.5 z-10">
+                  <span class="absolute h-full w-full bg-blue-400/75 rounded-full animate-ping -z-10"></span>
+                  <span class="block h-2.5 w-2.5 bg-blue-500 rounded-full z-10"></span>
+                </span>
+              </div>
+              <p class="charging-state py-0.5 px-2 font-barlow text-lg text-white rounded-lg"></p>
+            </div>
+            <!-- CONNECTED TIME -->
+            <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Nabíjecí výkon</p>
+              <p class="real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- CONNECTED TIME -->
+            <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Doba připojení</p>
+              <p class="connected-time font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- CHARGING TIME -->
+            <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Doba nabíjení</p>
+              <p class="charging-time font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
           </div>
-          <!-- CHARGING STATE -->
-          <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
-            <p class="dark:text-white text-sm font-medium">Poslední nabíjecí relace</p>
-            <p class="part-energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+
+          <!-- CHARGING DATA -->
+          <div class="group charging-data grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-12 px-6 py-4">
+            <!-- CHARGING STATE -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Celkem nabito</p>
+              <p class="energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
+            <!-- CHARGING STATE -->
+            <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+              <p class="dark:text-white text-sm font-medium">Poslední nabíjecí relace</p>
+              <p class="part-energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
 
   </div>
 </section>

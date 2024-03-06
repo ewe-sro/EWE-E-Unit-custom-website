@@ -1,6 +1,7 @@
 ---
 title: 'Nabíjecí data'
 description: 'Nabíjecí data z vaší nabíjecí stanice'
+heading: 'Nabíjecí data'
 permalink: 'nabijeci-data/'
 eleventyNavigation:
   key: Nabíjecí data
@@ -19,14 +20,12 @@ eleventyNavigation:
 <!-- MAIN -->
 <section class="px-4 sm:px-8 py-16">
   <div class="max-w-screen-2xl m-auto flex flex-col gap-8">
-    <!-- HEADING -->
-    <div class="p-2 border-b border-neutral-200 dark:border-neutral-600">
-      <h2 class="text-lg dark:text-white font-semibold">Nabíjecí data</h2>
-    </div>
 
     <!-- TABLE + DOWNLOAD -->
     <div class="flex flex-col gap-4">
-      <div class="p-4 bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl overflow-x-auto">
+      <div class="w-[calc(100vw-2rem)] sm:w-[calc(100vw-4rem)] lg:max-w-[calc(100vw-22rem)] max-w-full p-4 bg-neutral-100 dark:bg-neutral-700
+      border border-neutral-200 dark:border-neutral-600 rounded-xl overflow-x-auto">
+        
         <!-- CHARGING DATA TABLE -->
         <table id="charging-data" class="w-full">
           <thead id="charging-head">
@@ -36,6 +35,7 @@ eleventyNavigation:
               <th scope="col">Název nabíjecího bodu</th>
               <th scope="col">Začátek nabíjení</th>
               <th scope="col">Konec nabíjení</th>
+              <th scope="col">Čas nabíjení</th>
               <th scope="col">RFID</th>
               <th scope="col">Spotřeba (Wh)</th>
             </tr>
@@ -55,6 +55,7 @@ eleventyNavigation:
               <td class="charging-point-name text-neutral-700 dark:text-neutral-200"></td>
               <td class="start-timestamp text-neutral-700 dark:text-neutral-200"></td>
               <td class="end-timestamp text-neutral-700 dark:text-neutral-200"></td>
+              <td class="duration text-neutral-700 dark:text-neutral-200"></td>
               <td class="rfid-tag text-neutral-700 dark:text-neutral-200"></td>
               <td class="consumption text-neutral-700 dark:text-neutral-200"></td>
             </tr>
