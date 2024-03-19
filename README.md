@@ -9,4 +9,4 @@ Tato webová stránka slouží jako jednoduchá custom administrace, která bě�
 
 ## Nahrání webové stránky na kontroler
 
-Pro nahrání webové stránky na kontroler stačí zkopírovat obsah složky **_public_** do kontroleru do složky **_/data/user-app/website_**
+Pro nahrání webové stránky na kontroler stačí vygenerovat webovou stránku pomocí příkazu `npm run build` a zkopírovat obsah vytvořené složky **_public_** do kontroleru do složky **_/data/user-app/website_**
