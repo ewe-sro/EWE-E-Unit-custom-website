@@ -1,0 +1,204 @@
+{
+    "002544": {
+        "device_name": "CHARX control modular AC",
+        "controller_uid": "002544",
+        "firmware_version": "V1.5.1",
+        "hardware_version": "V1.05",
+        "parent_device_uid": "a451da",
+        "position": 1,
+        "charging_point_name": "Sloupek 1A",
+        "charging_data": {
+            "apparent_energy": {
+                "name": "apparent_energy",
+                "unit": "VAh",
+                "value": 4968266
+            },
+            "apparent_power": {
+                "name": "apparent_power",
+                "unit": "VA",
+                "value": 0.0
+            },
+            "energy_meter_info": {
+                "firmware_version": "1.22",
+                "model_number": "",
+                "serial_number": "830102W8LA"
+            },
+            "energy_real_power": {
+                "name": "energy_real_power",
+                "unit": "Wh",
+                "value": 4968252
+            },
+            "frequency": {
+                "name": "frequency",
+                "unit": "Hz",
+                "value": 50.02
+            },
+            "i1": {
+                "name": "i1",
+                "unit": "A",
+                "value": 0.0
+            },
+            "i2": {
+                "name": "i2",
+                "unit": "A",
+                "value": 0.0
+            },
+            "i3": {
+                "name": "i3",
+                "unit": "A",
+                "value": 0.0
+            },
+            "meas_interval_sec": 5,
+            "part_apparent_energy": {
+                "name": "part_apparent_energy",
+                "unit": "VAh",
+                "value": 68191
+            },
+            "part_energy_real_power": {
+                "name": "part_energy_real_power",
+                "unit": "Wh",
+                "value": 68191
+            },
+            "power_factor": {
+                "name": "power_factor",
+                "unit": "COS",
+                "value": 0.0
+            },
+            "reactive_energy": {
+                "name": "reactive_energy",
+                "unit": "VARh",
+                "value": 11959
+            },
+            "reactive_power": {
+                "name": "reactive_power",
+                "unit": "VAr",
+                "value": 0.0
+            },
+            "real_power": {
+                "name": "real_power",
+                "unit": "W",
+                "value": 0.0
+            },
+            "timestamp": "2024-03-18T10:41:00",
+            "u1": {
+                "name": "u1",
+                "unit": "V",
+                "value": 237.452
+            },
+            "u2": {
+                "name": "u2",
+                "unit": "V",
+                "value": 237.274
+            },
+            "u3": {
+                "name": "u3",
+                "unit": "V",
+                "value": 237.945
+            },
+            "connected_state": "connected",
+            "connected_time_sec": 12883,
+            "charge_time_sec": 11594
+        }
+    },
+    "003513": {
+        "device_name": "CHARX control modular AC",
+        "controller_uid": "003513",
+        "firmware_version": "V1.5.1",
+        "hardware_version": "V1.05",
+        "parent_device_uid": "a451da",
+        "position": 2,
+        "charging_point_name": "Sloupek 1B",
+        "charging_data": {
+            "apparent_energy": {
+                "name": "apparent_energy",
+                "unit": "VAh",
+                "value": 3467545
+            },
+            "apparent_power": {
+                "name": "apparent_power",
+                "unit": "VA",
+                "value": 0.0
+            },
+            "energy_meter_info": {
+                "firmware_version": "1.22",
+                "model_number": "",
+                "serial_number": "530102W8LA"
+            },
+            "energy_real_power": {
+                "name": "energy_real_power",
+                "unit": "Wh",
+                "value": 3467523
+            },
+            "frequency": {
+                "name": "frequency",
+                "unit": "Hz",
+                "value": 50.04
+            },
+            "i1": {
+                "name": "i1",
+                "unit": "A",
+                "value": 0.0
+            },
+            "i2": {
+                "name": "i2",
+                "unit": "A",
+                "value": 0.0
+            },
+            "i3": {
+                "name": "i3",
+                "unit": "A",
+                "value": 0.0
+            },
+            "meas_interval_sec": 5,
+            "part_apparent_energy": {
+                "name": "part_apparent_energy",
+                "unit": "VAh",
+                "value": 80050
+            },
+            "part_energy_real_power": {
+                "name": "part_energy_real_power",
+                "unit": "Wh",
+                "value": 80051
+            },
+            "power_factor": {
+                "name": "power_factor",
+                "unit": "COS",
+                "value": 0.0
+            },
+            "reactive_energy": {
+                "name": "reactive_energy",
+                "unit": "VARh",
+                "value": 12586
+            },
+            "reactive_power": {
+                "name": "reactive_power",
+                "unit": "VAr",
+                "value": 0.0
+            },
+            "real_power": {
+                "name": "real_power",
+                "unit": "W",
+                "value": 0.0
+            },
+            "timestamp": "2024-03-18T10:41:00",
+            "u1": {
+                "name": "u1",
+                "unit": "V",
+                "value": 237.779
+            },
+            "u2": {
+                "name": "u2",
+                "unit": "V",
+                "value": 237.487
+            },
+            "u3": {
+                "name": "u3",
+                "unit": "V",
+                "value": 238.206
+            },
+            "connected_state": "disconnected",
+            "connected_time_sec": 0,
+            "charge_time_sec": 0
+        }
+    }
+}
