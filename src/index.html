@@ -17,7 +17,7 @@ eleventyNavigation:
 <section class="px-4 sm:px-8 py-16">
   <div class="max-w-screen-2xl m-auto flex flex-col gap-8">
     <!-- CONTROLLER CARDS -->
-    <ul id="controller-cards" class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-8">
+    <ul id="controller-cards" class="grid xl:grid-cols-2 2xl:grid-cols-3 items-start gap-8">
 
       <!-- EMPTY CONTROLLER CARD -->
       <li id="empty-controller-card" class="hidden w-full 2xl:max-w-lg bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl">
@@ -26,7 +26,7 @@ eleventyNavigation:
           <h3 class="dark:text-white font-semibold">EWE E-Unit</h3>
           <div class="flex items-center">
             <button class="modal-toggle material-icons-round h-10 w-10 !text-2xl text-neutral-500 dark:text-neutral-300 hover:text-black dark:hover:text-white
-            transition-transform duration-300 focus:scale-[.8]" onclick="toggleModal(this.dataset.controllerUid)">more_vert</button>
+            transition-transform duration-300 focus:scale-[.8]" aria-hidden="true" onclick="toggleModal(this.dataset.controllerUid)">more_vert</button>
             <span class="p-2 bg-primary font-barlow text-white font-medium rounded-lg">ID: <span class="controller-uid">002544</span></span>
           </div>
           
@@ -68,6 +68,16 @@ eleventyNavigation:
             <p class="dark:text-white text-sm font-medium">Doba nabíjení</p>
             <p class="charging-time font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
           </div>
+          <!-- REAL OUTPUT POWER -->
+          <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+            <p class="dark:text-white text-sm font-medium">Nabíjecí výkon</p>
+            <p class="real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+          </div>
+          <!-- CHARGING SESSION -->
+          <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
+            <p class="dark:text-white text-sm font-medium">Nabíjecí relace</p>
+            <p class="part-energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
+          </div>
         </div>
       </li>
 
@@ -83,7 +93,7 @@ eleventyNavigation:
 
           <!-- CLOSE BUTTON -->
           <button class="modal-toggle material-icons-round absolute -top-12 right-6 h-10 w-10 !text-2xl
-          text-neutral-200 hover:text-white transition-transform duration-300 focus:scale-[.8]" onclick="toggleModal(this.dataset.controllerUid)">close</button>
+          text-neutral-200 hover:text-white transition-transform duration-300 focus:scale-[.8]" aria-hidden="true" onclick="toggleModal(this.dataset.controllerUid)">close</button>
 
           <div class="flex justify-between items-center px-6 py-4 border-b border-neutral-200 dark:border-neutral-600">
             <!-- CONTROLLER HEADING -->
@@ -139,7 +149,7 @@ eleventyNavigation:
               </div>
               <p class="charging-state py-0.5 px-2 font-barlow text-lg text-white rounded-lg"></p>
             </div>
-            <!-- CONNECTED TIME -->
+            <!-- REAL OUTPUT POWER -->
             <div class="group-[.disconnected]:hidden group-[.connected]:flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
               <p class="dark:text-white text-sm font-medium">Nabíjecí výkon</p>
               <p class="real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
@@ -163,7 +173,7 @@ eleventyNavigation:
               <p class="dark:text-white text-sm font-medium">Celkem nabito</p>
               <p class="energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>
             </div>
-            <!-- CHARGING STATE -->
+            <!-- LAST CHARGING SESSION -->
             <div class="flex max-md:flex-col justify-between md:items-center gap-1 md:gap-4">
               <p class="dark:text-white text-sm font-medium">Poslední nabíjecí relace</p>
               <p class="part-energy-real-power font-barlow text-lg text-neutral-700 dark:text-neutral-200"></p>

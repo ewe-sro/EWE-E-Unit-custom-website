@@ -6,6 +6,11 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      aria: {
+        'sort-none': 'sort="none"',
+        asc: 'sort="ascending"',
+        desc: 'sort="descending"',
+      },
       colors: {
         'primary': {
           DEFAULT: '#EE761C',

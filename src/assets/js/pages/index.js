@@ -26,7 +26,7 @@ function convertSecondstoTime(givenSeconds) {
 /////////////////////////
 
 function convertEnergyPower(value) {
-    if (value <= 10000) {
+    if (value <= 1000) {
         var realPowerCalc = value.toFixed(1);
         var realPowerWh = `${realPowerCalc} Wh`;
     } else {
@@ -37,122 +37,19 @@ function convertEnergyPower(value) {
     return realPowerWh;
 }
 
-///////////////////////////////////////
-/// COLLECT CONTROLLER DATA VIA API ///
-///////////////////////////////////////
-
-// this function returns the controller_uid, device_name, firmware_version,
-// hardware_version, parrent_device_uid and position
-
-// host variable is the IP adress for the controller API
-async function getControllerData(host) {
-    // Get data via API call
-    let controllerData = await fetchApi(`http://${host}:5555/api/v1.0/charging-controllers`);
-
-    // Create an empty object
-    let outputData = [];
-
-    // Loop over the controller data
-    for (var controller of Object.keys(controllerData)) {
-        let controllerUid = controller;
-        let controllerObj = controllerData[controllerUid];
-
-        // Insert the controller data to dictionary
-        outputData[controllerUid] = {
-            controller_uid: controllerUid,
-            device_name: controllerObj.device_name,
-            firmware_version: controllerObj.firmware_version,
-            hardware_version: controllerObj.hardware_version,
-            parent_device_uid: controllerObj.parent_device_uid,
-            position: controllerObj.position
-        }
-
-        /////////////////////////////////////////
-        /// CHARGING POINTS DATA VIA API CALL ///
-        /////////////////////////////////////////
-        let pointData = await fetchApi(`http://${host}:5555/api/v1.0/charging-points`);
-
-        // Loop over the data
-        for (var chargingPoint of Object.keys(pointData["charging_points"])) {
-            let pointObj = pointData["charging_points"][chargingPoint];
-
-            // If the current charging point has the corresponding id
-            if (pointObj["charging_controller_device_uid"] == controllerUid) {
-                outputData[controllerUid]["charging_point_name"] = pointObj.charging_point_name;
-            }
-        }
-    }
-
-    return outputData;
-}
-
-//////////////////////////////////////
-///                                ///
-/////////////////////////////////////
+/////////////////////////
+///                   ///
+/////////////////////////
 
 
-
-///////////////////////////////////////////////
-/// COLLECT CHARGING STATE AND DATA VIA API ///
-///////////////////////////////////////////////
-
-// this function returns the connected_state [connected or disconnected],
-// connected_time, charging_time, real_power
-
-async function getChargingData(host, controllerUid) {
-    // Connected states
-    const connectedStates = ["B1", "B2", "C1", "C2", "D1", "D2"];
-
-    // Get connected state via API call
-    let stateData = await fetchApi(`http://${host}:5555/api/v1.0/charging-controllers/${controllerUid}/data?param_list=iec_61851_state`)
-
-    // Get energy data via API call
-    var energyData = await fetchApi(`http://${host}:5555/api/v1.0/charging-controllers/${controllerUid}/data?param_list=energy`);
-    var energyObj = energyData["energy"];
-
-    // Create an empty object
-    let outputData = [];
-
-    // If vehicle is connected
-    if (connectedStates.includes(stateData["iec_61851_state"])) {
-        // Get connected time via API call
-        let connectedTimeSec = await fetchApi(`http://${host}:5555/api/v1.0/charging-controllers/${controllerUid}/data?param_list=connected_time_sec`);
-        let connectedTime = convertSecondstoTime(connectedTimeSec["connected_time_sec"]);
-
-        // Get charging time via API call
-        let chargingTimeSec = await fetchApi(`http://${host}:5555/api/v1.0/charging-controllers/${controllerUid}/data?param_list=charge_time_sec`);
-        let chargingTime = convertSecondstoTime(chargingTimeSec["charge_time_sec"]);
-
-        // Write the data to object
-        outputData[controllerUid] = {
-            connected_state: "connected",
-            connected_time: connectedTime,
-            charging_time: chargingTime,
-            real_power: energyObj.real_power,
-        }
-
-    } else {
-        // Write the data to object
-        outputData[controllerUid] = {
-            connected_state: "disconnected",
-            connected_time: 0,
-            charging_time: 0,
-        }
-    }
-
-    outputData[controllerUid]["energy_real_power"] = energyObj.energy_real_power;
-    outputData[controllerUid]["part_energy_real_power"] = energyObj.part_energy_real_power;
-
-    return outputData;
-}
 
 //////////////////////////////////////////////////////////////////////
 /// INITIALIZE CONTROLLER DATA AND CREATE CONTROLLER CARD ELEMENTS ///
 //////////////////////////////////////////////////////////////////////
 
-async function initControllers(host) {
+async function initControllers() {
     // Get controller data via API call
-    let controllerData = await getControllerData(host);
+    let controllerData = await fetchApi("/data/controller_data.json");
 
     // Loop over the controller data
     for (var controller of Object.keys(controllerData)) {
@@ -180,6 +77,7 @@ async function initControllers(host) {
         ////////////////////////////////////////
         /// Create controller modal elements ///
         ////////////////////////////////////////
+
         let emptyModal = document.querySelector("#empty-controller-modal");
         let newModal = emptyModal.cloneNode(true);
 
@@ -197,21 +95,17 @@ async function initControllers(host) {
         newModal.querySelector(".position").innerHTML = controllerObj.position;
         newModal.querySelector(".charging-point-name").innerHTML = controllerObj.charging_point_name;
 
-        /////////////////////////////
-        /// Controller card state ///
-        /////////////////////////////
-        let chargingData = await getChargingData(host, controllerObj.controller_uid);
-        var chargingObj = chargingData[controllerObj.controller_uid];
-
-        // Energy real power
-        let energyRealPower = convertEnergyPower(chargingObj.energy_real_power.value);
-        let partEnergyRealPower = convertEnergyPower(chargingObj.part_energy_real_power.value);
+        // Part energy real power
+        let energyRealPower = convertEnergyPower(controllerObj.charging_data.energy_real_power.value);
+        let partEnergyRealPower = convertEnergyPower(controllerObj.charging_data.part_energy_real_power.value);
 
         newModal.querySelector(".energy-real-power").innerHTML = energyRealPower;
         newModal.querySelector(".part-energy-real-power").innerHTML = partEnergyRealPower;
 
+
+        
         // If vehicle is connected to the charging point
-        if (chargingObj.connected_state == "connected") {
+        if (controllerObj.charging_data.connected_state == "connected") {
             ////////////////////////////////////////
             /// Controller charging data in card ///
             ////////////////////////////////////////
@@ -221,7 +115,21 @@ async function initControllers(host) {
 
             newCard.querySelector(".charging-information").classList.add("connected");
 
-            newCard.querySelector(".charging-time").innerHTML = chargingObj.charging_time;
+            newCard.querySelector(".charging-time").innerHTML = convertSecondstoTime(controllerObj.charging_data.charge_time_sec);
+
+            // Calculate power Watts
+            let realPower = controllerObj.charging_data.real_power.value
+            
+            if (realPower <= 10000) {
+                var realPowerCalc = realPower.toFixed(1);
+                var realPowerWatt = `${realPowerCalc} W`
+            } else {
+                var realPowerCalc = (realPower / 1000).toFixed(2);
+                var realPowerWatt = `${realPowerCalc} kW`
+            }
+
+            newCard.querySelector(".real-power").innerHTML = realPowerWatt;
+            newCard.querySelector(".part-energy-real-power").innerHTML = partEnergyRealPower;
 
             /////////////////////////////////////////
             /// Controller charging data in modal ///
@@ -232,20 +140,9 @@ async function initControllers(host) {
 
             newModal.querySelector(".charging-information").classList.add("connected");
 
-            // Calculate power Watts
-            let realPower = chargingObj.real_power.value
-            
-            if (realPower <= 10000) {
-                var realPowerCalc = realPower.toFixed(1);
-                var realPowerWatt = `${realPowerCalc} W`
-            } else {
-                var realPowerCalc = (realPower / 1000).toFixed(2);
-                var realPowerWatt = `${realPowerCalc} kW`
-            }
-
             newModal.querySelector(".real-power").innerHTML = realPowerWatt;
-            newModal.querySelector(".connected-time").innerHTML = chargingObj.connected_time;
-            newModal.querySelector(".charging-time").innerHTML = chargingObj.charging_time;
+            newModal.querySelector(".connected-time").innerHTML = convertSecondstoTime(controllerObj.charging_data.connected_time_sec);
+            newModal.querySelector(".charging-time").innerHTML = convertSecondstoTime(controllerObj.charging_data.charge_time_sec);
 
         } else {
             ////////////////////////////////////////
@@ -285,9 +182,9 @@ async function initControllers(host) {
 /// REFRESH CONNECTION DATA VIA API CALL ///
 ////////////////////////////////////////////
 
-async function refreshConnectionData(host) {
+async function refreshConnectionData() {
     // Get controller data via API call
-    let controllerData = await getControllerData(host);
+    let controllerData = await fetchApi("/data/controller_data.json");
 
     // Loop over the controller data
     for (var controller of Object.keys(controllerData)) {
@@ -297,12 +194,8 @@ async function refreshConnectionData(host) {
         let controllerCard = document.querySelector(`#controller-card-${controllerObj.controller_uid}`);
         let controllerModal = document.querySelector(`#controller-modal-${controllerObj.controller_uid}`);
 
-        // Get charging data via API call
-        let chargingData = await getChargingData(host, controllerObj.controller_uid);
-        var chargingObj = chargingData[controllerObj.controller_uid];
-
         // If vehicle is connected to the charging point
-        if (chargingObj.connected_state == "connected") {
+        if (controllerObj.charging_data.connected_state == "connected") {
             ////////////////////////////////////////
             /// Controller charging data in card ///
             ////////////////////////////////////////
@@ -322,7 +215,7 @@ async function refreshConnectionData(host) {
 
             controllerCard.querySelector(".charging-icon").classList.remove("hidden"); // show card charging icon
 
-            controllerCard.querySelector(".charging-time").innerHTML = chargingObj.charging_time;
+            controllerCard.querySelector(".charging-time").innerHTML = convertSecondstoTime(controllerObj.charging_data.charge_time_sec);
 
             /////////////////////////////////////////
             /// Controller charging data in modal ///
@@ -344,7 +237,7 @@ async function refreshConnectionData(host) {
             controllerModal.querySelector(".charging-icon").classList.remove("hidden"); // show modal charging icon
 
             // Calculate power Watts
-            let realPower = chargingObj.real_power.value
+            let realPower = controllerObj.charging_data.real_power.value
 
             if (realPower <= 10000) {
                 var realPowerCalc = realPower.toFixed(1);
@@ -355,14 +248,17 @@ async function refreshConnectionData(host) {
             }
 
             controllerModal.querySelector(".real-power").innerHTML = realPowerWatt;
-            controllerModal.querySelector(".connected-time").innerHTML = chargingObj.connected_time;
-            controllerModal.querySelector(".charging-time").innerHTML = chargingObj.charging_time;
+            controllerModal.querySelector(".connected-time").innerHTML = convertSecondstoTime(controllerObj.charging_data.connected_time_sec);
+            controllerModal.querySelector(".charging-time").innerHTML = convertSecondstoTime(controllerObj.charging_data.charge_time_sec);
 
         } else {
             controllerCard.querySelector(".charging-state").innerHTML = "K dispozici";
             controllerCard.querySelector(".charging-state").classList.add("bg-green-500");
 
             controllerCard.querySelector(".charging-information").classList.add("disconnected");
+
+            controllerCard.querySelector(".charging-icon").classList.add("hidden"); // hide card charging icon
+            controllerModal.querySelector(".charging-icon").classList.add("hidden"); // hide modal charging icon
         }
 
         /////////////////////////////////////////
@@ -371,7 +267,7 @@ async function refreshConnectionData(host) {
     };
 
     // Keep running this function every 5 seconds
-    setTimeout(() => refreshConnectionData(host), 2500)
+    setTimeout(() => refreshConnectionData(), 5000)
 }
 
 ////////////////////////////////////////////
@@ -380,15 +276,10 @@ async function refreshConnectionData(host) {
 
 
 
-// Set the host IP hostname for API calls
-var currentHost = window.location.hostname;
-
 // Initialize controller data
-//initControllers(currentHost);
-initControllers("192.168.150.241");
+initControllers();
 
 // Wait 5 seconds and then run function that refreshes connection data
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 await sleep(5000);
-//refreshConnectionData(currentHost);
-refreshConnectionData("192.168.150.241");
+refreshConnectionData();
