@@ -13,8 +13,8 @@ async function initChargingData() {
   let tableHead = chargingData.data[0];
 
   // Loop over the charging data
-  for (let row in chargingData.data) {
-    var chargingObj = chargingData.data[row];
+  for (let row in chargingData.data.reverse()) {
+    let chargingObj = chargingData.data[row];
 
     // Check if record row has data
     if (chargingObj.deviceUid != null) {
@@ -32,8 +32,8 @@ async function initChargingData() {
       newRow.querySelector(".record-id").innerHTML = chargingObj.id;
       newRow.querySelector(".device-uid").innerHTML = chargingObj.deviceUid;
       newRow.querySelector(".charging-point-name").innerHTML = chargingObj.chargingPointName;
-      newRow.querySelector(".start-timestamp").innerHTML = chargingObj.startTimestamp;
-      newRow.querySelector(".end-timestamp").innerHTML = chargingObj.endTimestamp;
+      newRow.querySelector(".start-timestamp").innerHTML = convertTimestampToDate(chargingObj.startTimestamp, "datetime");
+      newRow.querySelector(".end-timestamp").innerHTML = convertTimestampToDate(chargingObj.endTimestamp, "datetime");
       newRow.querySelector(".duration").innerHTML = chargingObj.duration;
       newRow.querySelector(".rfid-tag").innerHTML = chargingObj.rfidTag;
       newRow.querySelector(".consumption").innerHTML = chargingObj.consumptionWh;
@@ -62,14 +62,14 @@ async function initChargingData() {
 
 function searchData() {
   // Declare variables
-  var input, filter, table, tr, td, txtValue;
+  let input, filter, table, tr, td, txtValue;
   input = document.querySelector("#table-search");
   filter = input.value.toUpperCase();
   table = document.querySelector("#charging-data tbody");
   tr = table.querySelectorAll("tr");
 
   // Loop through all table rows
-  for (var row of tr) {
+  for (let row of tr) {
     // Hide the row initially.
     row.style.display = "none";
 
@@ -92,6 +92,65 @@ function searchData() {
 /////////////////////////
 ///                   ///
 /////////////////////////
+
+
+
+///////////////////////////
+/// GET TIMEZONE OFFSET ///
+///////////////////////////
+
+const getTimezoneOffset = () => {
+  const today = new Date();
+  const offsetMinutes = today.getTimezoneOffset();
+  const offsetHours = -offsetMinutes / 60;
+
+  return offsetHours;
+}
+
+///////////////////////////
+///                     ///
+///////////////////////////
+
+
+
+/////////////////////////////////
+/// CONVERT TIMESTAMP TO DATE ///
+/////////////////////////////////
+
+function convertTimestampToDate(timestamp, type) {
+  if (timestamp === null || timestamp === undefined || timestamp == "") {
+      return " ";
+  }
+
+  if (timestamp === "") return "";
+
+  // Create a Date object from the timestamp
+  const date = new Date(timestamp);
+
+  const timezoneOffset = getTimezoneOffset();
+
+  // Extract date components
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Months are zero-indexed, so add 1
+  const day = date.getDate();
+  const hour = date.getHours() + timezoneOffset;
+  const minutes = date.getMinutes();
+
+  // Construct the date string in desired format
+  let formattedDate
+
+  if (type === "datetime") {
+      formattedDate = `${day.toString().padStart(2, '0')}. ${month.toString().padStart(2, '0')}. ${year} ${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
+  } else {
+      formattedDate = `${day.toString().padStart(2, '0')}. ${month.toString().padStart(2, '0')}. ${year}`
+  }
+
+  return formattedDate;
+}
+
+/////////////////////////////////
+///                           ///
+/////////////////////////////////
 
 
 

@@ -1,5 +1,5 @@
 <!-- SIDEBAR MENU -->
-<nav class="sidebar absolute lg:sticky top-0 left-0 flex flex-col justify-between h-screen w-full max-w-[18rem] py-8 px-4 z-50
+<nav class="sidebar absolute lg:sticky top-0 left-0 flex-shrink-0 flex flex-col justify-between h-screen w-full max-w-[18rem] py-8 px-4 z-50
 bg-primary-50 dark:bg-neutral-700 border-r border-neutral-200 dark:border-neutral-600
 transition-transform duration-500 delay-200 max-lg:-translate-x-full group-[.sidebar]/body:translate-x-0">
     <div class="flex flex-col gap-16 w-full">
@@ -21,7 +21,7 @@ transition-transform duration-500 delay-200 max-lg:-translate-x-full group-[.sid
                     {% else %} text-neutral-700 dark:text-neutral-200 hover:bg-orange-600/15 dark:hover:bg-neutral-800 hover:text-primary dark:hover:text-white{% endif %}"
                     {% if entry.url == page.url or entry.title | lower in page.url %} aria-current="page" {% endif %}>
                         <span class="material-icons-round">{{ entry.icon }}</span>
-                        <span>{{ entry.title }}</span>
+                        <span class="leading-none">{{ entry.title }}</span>
                     </a>
                 </li>
       
