@@ -1,37 +1,41 @@
 <!-- SIDEBAR MENU -->
-<nav class="sidebar absolute lg:sticky top-0 left-0 flex-shrink-0 flex flex-col justify-between h-screen w-full max-w-[18rem] py-8 px-4 z-50
+<nav class="sidebar absolute lg:sticky top-0 left-0 flex flex-col justify-between h-screen w-full max-w-[18rem] py-8 px-4 z-50
 bg-primary-50 dark:bg-neutral-700 border-r border-neutral-200 dark:border-neutral-600
 transition-transform duration-500 delay-200 max-lg:-translate-x-full group-[.sidebar]/body:translate-x-0">
     <div class="flex flex-col gap-16 w-full">
         <!-- NAVIGATION LOGO -->
         <a class="flex flex-col items-center gap-2" aria-label="Kliknutím přejdete na domovskou stránku" href="/">
-            <img class="dark:hidden h-12 w-auto" decoding="async" loading="eager" src="/assets/svgs/EWE_logo.svg" alt="EWE s.r.o. logo" width="164" height="56">
-            <img class="hidden dark:block h-12 w-auto" decoding="async" loading="eager" src="/assets/svgs/EWE_logo_white.svg" alt="EWE s.r.o. logo" width="164" height="56">
-            <p class="font-barlow text-xl text-secondary dark:text-neutral-200">E-Unit management</p>
+            <img class="dark:hidden h-12 w-auto" decoding="async" loading="eager" src="/assets/svgs/EWE_logo.svg"
+                alt="EWE s.r.o. logo" width="164" height="56">
+            <img class="hidden dark:block h-12 w-auto" decoding="async" loading="eager"
+                src="/assets/svgs/EWE_logo_white.svg" alt="EWE s.r.o. logo" width="164" height="56">
+            <p class="font-barlow text-xl text-secondary dark:text-neutral-200">EWE mobility management</p>
         </a>
-    
+
         <ul class="flex flex-col gap-2">
             {% set navPages = collections.all | eleventyNavigation %}
-              {% for entry in navPages %}
-                {% set hasChild = entry.children.length %}
-    
-                <li class="{% if hasChild %} dropdown{% endif %}"{% if hasChild %} tabindex="0"{% endif %}>
-                    <a href="{{ entry.url }}" class="flex items-center gap-4 px-4 py-3 font-medium rounded-lg whitespace-nowrap
+            {% for entry in navPages %}
+            {% set hasChild = entry.children.length %}
+
+            <li class="{% if hasChild %} dropdown{% endif %}" {% if hasChild %} tabindex="0" {% endif %}>
+                <a href="{{ entry.url }}"
+                    class="flex items-center gap-4 px-4 py-3 font-medium rounded-lg whitespace-nowrap
                     {% if entry.url == page.url or entry.title | lower in page.url %} bg-primary dark:bg-neutral-800 text-white dark:text-white shadow
                     {% else %} text-neutral-700 dark:text-neutral-200 hover:bg-orange-600/15 dark:hover:bg-neutral-800 hover:text-primary dark:hover:text-white{% endif %}"
-                    {% if entry.url == page.url or entry.title | lower in page.url %} aria-current="page" {% endif %}>
-                        <span class="material-icons-round">{{ entry.icon }}</span>
-                        <span class="leading-none">{{ entry.title }}</span>
-                    </a>
-                </li>
-      
+                    {% if entry.url==page.url or entry.title | lower in page.url %} aria-current="page" {% endif %}>
+                    <span class="material-icons-round">{{ entry.icon }}</span>
+                    <span class="leading-none">{{ entry.title }}</span>
+                </a>
+            </li>
+
             {% endfor %}
         </ul>
     </div>
-    
+
     <ul class="flex flex-col gap-2">
         <li>
-            <a href="#" id="settings-link" class="flex items-center gap-4 px-4 py-3 hover:bg-orange-600/15 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 hover:text-primary dark:hover:text-white font-medium rounded-lg whitespace-nowrap">
+            <a href="#" id="settings-link"
+                class="flex items-center gap-4 px-4 py-3 hover:bg-orange-600/15 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 hover:text-primary dark:hover:text-white font-medium rounded-lg whitespace-nowrap">
                 <span class="material-icons-round">settings</span>
                 <span>Nastavení</span>
             </a>
@@ -44,4 +48,6 @@ transition-transform duration-500 delay-200 max-lg:-translate-x-full group-[.sid
 </nav>
 
 <!-- BACKGROUND SHADOW -->
-<div class="absolute top-0 left-0 -translate-x-full h-screen w-screen bg-neutral-800/75 z-40 transition-transform duration-500 group-[.sidebar]/body:translate-x-0"></div>
+<div
+    class="absolute top-0 left-0 -translate-x-full h-screen w-screen bg-neutral-800/75 z-40 transition-transform duration-500 group-[.sidebar]/body:translate-x-0">
+</div>
