@@ -16,4 +16,5 @@ Pro úpravení webové stránky je potřeba:
 - Spustit lokální server pomoíc `npm start` - webová stránka je poté přístupná na adrese `localhost:8080`
 
 ## Nahrání webové stránky na kontroler
-Pro nahrání webové stránky na kontroler stačí vygenerovat webovou stránku pomocí příkazu `npm run build` a zkopírovat obsah vytvořené složky **_public_** do kontroleru do složky **_/data/user-app/website_**
+Pro nahrání webové stránky na kontroler stačí zkopírovat obsah složky **_public_** do kontroleru do složky **_/data/user-app/website_**.
+Pokud došlo k nějakým úpravem webu je potřeba spustit proces vygenerování webu pomocí příkazu `npm run build`. Upravená webová stránka bude opět ve složce **_public_**.
